@@ -1,0 +1,17 @@
+collective.packagekit Installation
+----------------------------------
+
+To install collective.packagekit using zc.buildout and the plone.recipe.zope2instance
+recipe to manage your project, you can do this:
+
+* Add ``collective.packagekit`` to the list of eggs to install, e.g.:
+
+    [buildout]
+    ...
+    eggs =
+        ...
+        collective.packagekit
+       
+* Re-run buildout, e.g. with:
+
+    $ ./bin/buildout
