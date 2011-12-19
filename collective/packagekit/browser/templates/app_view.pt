@@ -7,6 +7,15 @@
 </head>
 <body>
    <div metal:fill-slot="content-core">
+
+      <div style="float:right;margin:20px 0px 20px 20px;">
+      <object type="application/x-packagekit-plugin" width="300" height="70"
+         class="packagekit-plugin">
+         <param name="displayname" tal:attributes="value context/title"/>
+         <param name="packagenames" tal:attributes="value python:' '.join(context.pk_packages)"/>
+      </object>
+   </div>
+
       <div tal:condition="here/text|nothing">
       <h4>Details</h4>
       <tal:c replace="structure here/text|nothing"/>
@@ -20,11 +29,6 @@
 
       <h4>Installation Through PackageKit</h4>
       <div>
-            <object type="application/x-packagekit-plugin" width="500" height="100"
-                  class="packagekit-plugin">
-            <param name="displayname" tal:attributes="value context/title"/>
-            <param name="packagenames" tal:attributes="value python:' '.join(context.pk_packages)"/>
-            </object>
       </div>
       <h4>Installation Through Yum</h4>
       <pre>yum install <tal:r replace="python:' '.join(context.pk_packages)"/></pre>
