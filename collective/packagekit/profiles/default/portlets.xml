@@ -4,6 +4,5 @@
         addview="collective.packagekit.pkwebportlet"
         title="PackageKit Web Portlet" 
         description="This portlet displays packagekit web plugin for content">
-        <for interface="plone.app.portlets.interfaces.IRightColumn" />
     </portlet>
 </portlets>
