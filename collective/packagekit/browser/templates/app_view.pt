@@ -8,7 +8,7 @@
 <body>
    <div metal:fill-slot="content-core">
 
-      <div style="float:right;margin:20px 0px 20px 20px;">
+      <div>
       <object type="application/x-packagekit-plugin" width="300" height="70"
          class="packagekit-plugin">
          <param name="displayname" tal:attributes="value context/title"/>
