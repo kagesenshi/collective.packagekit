@@ -7,7 +7,12 @@
 </head>
 <body>
    <div metal:fill-slot="content-core">
-      hello world
-  </div>
+      <div>
+      <tal:c replace="structure here/text|nothing"/>
+      </div>
+      <div tal:condition="here/remoteUrl|nothing">
+         Website: <a tal:attributes="href here/remoteUrl" tal:content="here/remoteUrl"></a>
+      </div>
+   </div>
 </body>
 </html>
