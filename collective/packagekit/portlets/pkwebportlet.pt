@@ -1,0 +1,13 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:tal="http://xml.zope.org/namespaces/tal"
+     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+     class="pkwebportlet">
+
+
+   <object type="application/x-packagekit-plugin" width="300" height="100"
+      class="packagekit-plugin">
+      <param name="displayname" tal:attributes="value context/title"/>
+      <param name="packagenames" tal:attributes="value python:' '.join(context.pk_packages)"/>
+   </object>
+
+</div>

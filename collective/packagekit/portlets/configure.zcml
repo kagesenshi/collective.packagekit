@@ -1,0 +1,15 @@
+<configure
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:plone="http://namespaces.plone.org/plone">
+
+    <include package="plone.app.portlets"/>
+
+    <plone:portlet
+        name="collective.packagekit.pkwebportlet"
+        interface=".pkwebportlet.IPackageKitWebPortlet"
+        assignment=".pkwebportlet.Assignment"
+        renderer=".pkwebportlet.Renderer"
+        addview=".pkwebportlet.AddForm"
+        />
+
+</configure>

@@ -10,6 +10,8 @@
   <!-- Include configuration for dependencies listed in setup.py -->
   <includeDependencies package="." />
 
+  <include package=".portlets"/>
+
   <!-- Grok the package to initialise schema interfaces and content classes -->
   <grok:grok package="." />
   
@@ -26,5 +28,14 @@
       />
 
   <!-- -*- extra stuff goes here -*- -->
+
+    <plone:behavior
+        title="PackageKit Application Behavior"
+        description="Add PackageKit application support"
+        provides=".pkappbehavior.IPackageKitApplicationBehavior"
+        factory=".pkappbehavior.PackageKitApplicationBehavior"
+        for="plone.dexterity.interfaces.IDexterityContent"
+        marker=".pkappbehavior.IPackageKitApplicationBehavior"
+        />
 
 </configure>
