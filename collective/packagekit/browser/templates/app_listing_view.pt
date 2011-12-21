@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+   <metal:slot fill-slot="style_slot">
+      <style>
+         .pkapp-listing-image {
+         }
+
+         .pkapp-listing-item {
+            text-align:center;
+         }
+
+         .pkapp-listing-label {
+            font-size:16px;
+         }
+
+      </style>
+   </metal:slot>
+</head>
+
+<body>
+
+    <metal:content-core fill-slot="content-core">
+       <metal:block define-macro="listing" extend-macro="context/folder_listing/macros/content-core">
+          <!-- we don't want the dl -->
+          <metal:entries fill-slot="entries">
+             <tal:table define="pkapp_util nocall:context/@@pkapp_util;
+                rows python:pkapp_util.gridslice(list(batch))">
+                <div class="row" tal:repeat="row rows">
+                   <tal:item repeat="item row">
+                      <div class="pkapp-listing-item span3"
+                         tal:define="item_obj item/getObject"> 
+                         <div class="pkapp-listing-image">
+                            <a tal:attributes="href item_obj/absolute_url">
+                            <img tal:define="scales item_obj/@@images;
+                               thumbnail python: scales.scale('image', width=140, height=140);"
+                               tal:condition="thumbnail"
+                               tal:attributes="src thumbnail/url;
+                               width thumbnail/width;
+                               height thumbnail/height;"/>
+                            </a>
+                         </div>
+                         <a tal:attributes="href item/getURL">
+                           <b class="pkapp-listing-label" tal:content="item/pretty_title_or_id"></b>
+                        </a>
+
+                      </div>
+                   </tal:item>
+                </div>
+             </tal:table>
+          </metal:entries>
+       </metal:block>
+    </metal:content-core>
+
+</body>
+</html>

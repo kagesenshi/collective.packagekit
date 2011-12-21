@@ -11,6 +11,7 @@
   <includeDependencies package="." />
 
   <include package=".portlets"/>
+  <include package=".browser"/>
 
   <!-- Grok the package to initialise schema interfaces and content classes -->
   <grok:grok package="." />

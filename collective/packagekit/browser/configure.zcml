@@ -1,0 +1,11 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+            xmlns:browser="http://namespaces.zope.org/browser">
+
+    <browser:page
+        name="app_listing_view"
+        for="*"
+        template="templates/app_listing_view.pt"
+        permission="zope2.View"
+        />
+
+</configure>

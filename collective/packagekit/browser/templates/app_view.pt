@@ -14,7 +14,7 @@
          <param name="displayname" tal:attributes="value context/title"/>
          <param name="packagenames" tal:attributes="value python:' '.join(context.pk_packages)"/>
          <table style="width:300px;height:70px">
-            <tr><td style="vertical-align:middle">Unable to load PackageKit Web Plugin. If you are on <a href="http://fedoraproject.org">Fedora</a>, load this page using Firefox</td></tr>
+            <tr><td style="vertical-align:middle">Unable to load PackageKit Web Plugin. If you are on <a href="http://fedoraproject.org">Fedora</a>, ensure <code>PackageKit-browser-plugin</code> is installed and you are loading this page using Firefox</td></tr>
          </table>
       </object>
    </div>
