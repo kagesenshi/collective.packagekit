@@ -31,7 +31,7 @@ class IPackageKitPackages(form.Schema):
 
     distribution = schema.Choice(
         title=u'Distribution',
-        values=['fedora'],
+        values=['fedora', 'ubuntu', 'debian'],
     )
     release = schema.TextLine(
         title=u'Distribution Release',
@@ -54,8 +54,8 @@ class IPackageKitApplicationBehavior(form.Schema):
     form.widget(pk_packages=DataGridFieldFactory)
     pk_packages = schema.List(
         title=u'Packages',
-        description=(u'List of packages related for this application, separate'
-                     u' using newline'),
+        description=(u'List of packages related for this application. ' +
+        'Distribution Release is optional'),
         value_type=DictRow(title=u'Package', schema=IPackageKitPackages)
     )
 
