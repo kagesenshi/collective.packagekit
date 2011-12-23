@@ -15,7 +15,7 @@
        </tal:if>
         <form tal:attributes="action string:${context/absolute_url}/download_catalog"
                method="get">
-         <input type="Submit" value="Install Now!"/>
+         <input class="primary" type="Submit" value="Install Now!"/>
         </form>
       </div>
 
