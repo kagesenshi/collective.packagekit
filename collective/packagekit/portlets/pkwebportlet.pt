@@ -4,10 +4,19 @@
      class="pkwebportlet">
 
 
-   <object type="application/x-packagekit-plugin" width="300" height="100"
-      class="packagekit-plugin">
-      <param name="displayname" tal:attributes="value context/title"/>
-      <param name="packagenames" tal:attributes="value python:' '.join(context.pk_packages)"/>
-   </object>
+      <div class="packagekit-icon" style="text-align:center">
+       <tal:if condition="context/pk_icon|nothing">
+       <img tal:define="scales context/@@images;
+       thumbnail python: scales.scale('pk_icon', width=96, height=96);"
+       tal:condition="thumbnail"
+       tal:attributes="src thumbnail/url;
+                        width thumbnail/width;
+                        height thumbnail/height;"/><br/>
+       </tal:if>
+        <form tal:attributes="action string:${context/absolute_url}/download_catalog"
+               method="get">
+         <input type="Submit" value="Install Now!"/>
+        </form>
+      </div>
 
 </div>

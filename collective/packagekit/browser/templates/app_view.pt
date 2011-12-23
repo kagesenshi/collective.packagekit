@@ -5,32 +5,9 @@
       metal:use-macro="here/main_template/macros/master">
 <head>
 
-<metal:slot fill-slot="style_slot">
-      <style>
-         .packagekit-icon {
-            margin-top:20px;
-         }
-      </style>
-</metal:slot>
-
 </head>
 <body>
    <div metal:fill-slot="content-core">
-
-      <div class="packagekit-icon">
-       <tal:if condition="context/pk_icon|nothing">
-       <img tal:define="scales context/@@images;
-       thumbnail python: scales.scale('pk_icon', width=96, height=96);"
-       tal:condition="thumbnail"
-       tal:attributes="src thumbnail/url;
-                        width thumbnail/width;
-                        height thumbnail/height;"/><br/>
-       </tal:if>
-        <form tal:attributes="action string:${context/absolute_url}/download_catalog"
-               method="get">
-         <input type="Submit" value="Install Now!"/>
-        </form>
-      </div>
 
       <div tal:condition="here/text|nothing">
       <h4>Details</h4>
