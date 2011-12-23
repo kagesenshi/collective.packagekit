@@ -1,5 +1,6 @@
 from five import grok
 from collective.packagekit.pkappbehavior import IPackageKitApplicationBehavior
+from zope.security import checkPermission
 
 grok.templatedir('templates')
 
@@ -22,3 +23,6 @@ class AppView(grok.View):
             },
             portal_type='Image'
         )
+
+    def can_add(self):
+        return checkPermission('cmf.AddPortalContent', self.context)

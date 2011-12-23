@@ -18,7 +18,9 @@
 </head>
 <body>
    <div metal:fill-slot="content-core"
-         tal:define="images view/images">
+      tal:define="images view/images;
+                  can_add view/can_add;
+                  pkapp_util nocall:view/@@pkapp_util">
 
       <div tal:condition="here/text|nothing">
       <h4>Details</h4>
@@ -28,15 +30,16 @@
          <h4>Website</h4>
          <p><a tal:attributes="href here/remoteUrl" tal:content="here/remoteUrl"></a></p>
       </div>
-         <div id="screenshot-gallery" tal:condition="images">
+         <div id="screenshot-gallery" tal:condition="python:images or can_add">
          <h4>Screenshots</h4>
-            <div>
+         <div tal:define="rows python:pkapp_util.gridslice(images, 6)">
+            <div class="row" tal:repeat="images rows">
                <tal:r repeat="image images">
+               <div class="span2" style="height:120px">
                <a class="screenshot-gallery-link" 
                   tal:define="image_obj image/getObject;
                   scales image_obj/@@images;
                   largescale python:scales.scale('image', height=1000, width=1000)"
-
                   tal:attributes="href largescale/url"
                   >
             <img tal:define="image_obj image/getObject;
@@ -45,9 +48,17 @@
                   tal:attributes="src thumbnail/url;
                                  width thumbnail/width;
                                  height thumbnail/height;"/>
-               </a>
-                                 </tal:r>
+                              </a>
+                  </div>
+               </tal:r>
+              </div>
             </div>
+            <form method="get" 
+               style="text-align:right"
+               tal:condition="can_add"
+                  tal:attributes="action string:${context/absolute_url}/createObject?type_name=Image">
+               <input type="submit" value="Add Screenshot"/>
+            </form>
          </div>
       <h4>Manual installation using YUM</h4>
       <pre>yum install <tal:r replace="python:' '.join(view.fedora_packages())"/></pre>
