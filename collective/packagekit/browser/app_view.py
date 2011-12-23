@@ -8,3 +8,7 @@ class AppView(grok.View):
     grok.context(IPackageKitApplicationBehavior)
     grok.template('app_view')
 
+    def fedora_packages(self):
+        pkgs = [i['identifier'] for i in self.context.pk_packages if (
+                i['distribution'] == 'fedora')]
+        return set(pkgs)

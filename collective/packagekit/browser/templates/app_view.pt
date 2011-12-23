@@ -42,8 +42,7 @@
       </div>
 
       <h4>Manual installation using YUM</h4>
-      <pre>yum install <tal:r replace="python:' '.join(context.pk_packages)"/></pre>
-
+      <pre>yum install <tal:r replace="python:' '.join(view.fedora_packages())"/></pre>
    </div>
 </body>
 </html>

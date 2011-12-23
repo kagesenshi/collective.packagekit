@@ -10,7 +10,7 @@ from z3c.relationfield.schema import RelationChoice, RelationList
 from plone.formwidget.contenttree import ObjPathSourceBinder
 
 from collective.packagekit import MessageFactory as _
-
+from collective.z3cform.datagridfield import DataGridFieldFactory, DictRow
 
 def checkImageSize(value):
     geometry = (value._height, value._width)
@@ -22,6 +22,21 @@ def checkImageSize(value):
         return False
 
     return True
+
+
+class IPackageKitPackages(form.Schema):
+    identifier = schema.TextLine(
+        title=u'Package'
+    )
+
+    distribution = schema.Choice(
+        title=u'Distribution',
+        values=['fedora'],
+    )
+    release = schema.TextLine(
+        title=u'Distribution Release',
+        required=False
+    )
 
 class IPackageKitApplicationBehavior(form.Schema):
     """
@@ -36,11 +51,12 @@ class IPackageKitApplicationBehavior(form.Schema):
         constraint=checkImageSize
     )
 
+    form.widget(pk_packages=DataGridFieldFactory)
     pk_packages = schema.List(
         title=u'Packages',
         description=(u'List of packages related for this application, separate'
                      u' using newline'),
-        value_type=schema.TextLine(title=u'Package')
+        value_type=DictRow(title=u'Package', schema=IPackageKitPackages)
     )
 
 
