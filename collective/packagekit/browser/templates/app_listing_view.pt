@@ -11,23 +11,24 @@
       <style>
          .pkapp-listing-image {
             height:96px;
-            width:96px;
+            width:128px;
          }
 
          .pkapp-listing-item {
             text-align:center;
             float:left;
-            height:150px;
-            width:96px;
+            height:200px;
+            width:128px;
          }
 
          .pkapp-listing-item a {
             text-decoration:none;
             border-bottom:none !important;
+            margin:10px;
          }
 
          .pkapp-listing-label {
-            font-size:16px;
+            font-size:12px;
          }
 
       </style>
@@ -58,6 +59,11 @@
              <a tal:attributes="href item/getURL">
                 <b class="pkapp-listing-label" tal:content="item/pretty_title_or_id"></b>
              </a>
+             <form tal:attributes="action string:${item/getURL}/download_catalog"
+                  method="get">
+             <input type="Submit" value="Install Now!"/>
+            </form>
+
           </div>
           </tal:item>
           <div class="visualClear"></div>
