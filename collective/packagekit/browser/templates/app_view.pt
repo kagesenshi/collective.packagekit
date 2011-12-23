@@ -56,8 +56,9 @@
             <form method="get" 
                style="text-align:right"
                tal:condition="can_add"
-                  tal:attributes="action string:${context/absolute_url}/createObject?type_name=Image">
-               <input type="submit" value="Add Screenshot"/>
+                  tal:attributes="action string:${context/absolute_url}/createObject">
+                  <input type="submit" value="Add Screenshot"/>
+                  <input type="hidden" name="type_name" value="Image"/>
             </form>
          </div>
       <h4>Manual installation using YUM</h4>
