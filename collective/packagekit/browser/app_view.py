@@ -12,3 +12,13 @@ class AppView(grok.View):
         pkgs = [i['identifier'] for i in self.context.pk_packages if (
                 i['distribution'] == 'fedora')]
         return set(pkgs)
+
+
+    def images(self):
+        return self.context.portal_catalog(
+            path={
+                'query': '/'.join(self.context.getPhysicalPath()),
+                'depth': 1
+            },
+            portal_type='Image'
+        )

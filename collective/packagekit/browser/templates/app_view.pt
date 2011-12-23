@@ -3,11 +3,22 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       metal:use-macro="here/main_template/macros/master">
-<head>
+      <head>
+
+         <metal:slot fill-slot="javascript_head_slot">
+         <script>
+            $(document).ready(function () {
+               $('.screenshot-gallery-link').prepOverlay({
+                  'subtype': 'image'
+               });
+            });
+         </script>
+         </metal:slot>
 
 </head>
 <body>
-   <div metal:fill-slot="content-core">
+   <div metal:fill-slot="content-core"
+         tal:define="images view/images">
 
       <div tal:condition="here/text|nothing">
       <h4>Details</h4>
@@ -17,7 +28,27 @@
          <h4>Website</h4>
          <p><a tal:attributes="href here/remoteUrl" tal:content="here/remoteUrl"></a></p>
       </div>
+         <div id="screenshot-gallery" tal:condition="images">
+         <h4>Screenshots</h4>
+            <div>
+               <tal:r repeat="image images">
+               <a class="screenshot-gallery-link" 
+                  tal:define="image_obj image/getObject;
+                  scales image_obj/@@images;
+                  largescale python:scales.scale('image', height=1000, width=1000)"
 
+                  tal:attributes="href largescale/url"
+                  >
+            <img tal:define="image_obj image/getObject;
+                        scales image_obj/@@images;
+                        thumbnail python:scales.scale('image', width=100, height=100, direction='down')"
+                  tal:attributes="src thumbnail/url;
+                                 width thumbnail/width;
+                                 height thumbnail/height;"/>
+               </a>
+                                 </tal:r>
+            </div>
+         </div>
       <h4>Manual installation using YUM</h4>
       <pre>yum install <tal:r replace="python:' '.join(view.fedora_packages())"/></pre>
    </div>
