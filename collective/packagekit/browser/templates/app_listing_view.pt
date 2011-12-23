@@ -10,10 +10,20 @@
    <metal:slot fill-slot="style_slot">
       <style>
          .pkapp-listing-image {
+            height:96px;
+            width:96px;
          }
 
          .pkapp-listing-item {
             text-align:center;
+            float:left;
+            height:150px;
+            width:96px;
+         }
+
+         .pkapp-listing-item a {
+            text-decoration:none;
+            border-bottom:none !important;
          }
 
          .pkapp-listing-label {
@@ -30,30 +40,27 @@
        <metal:block define-macro="listing" extend-macro="context/folder_listing/macros/content-core">
           <!-- we don't want the dl -->
           <metal:entries fill-slot="entries">
-             <tal:table define="pkapp_util nocall:context/@@pkapp_util;
-                rows python:pkapp_util.gridslice(list(batch), 4)">
-                <div class="row" tal:repeat="row rows">
-                   <tal:item repeat="item row">
-                      <div class="pkapp-listing-item span3"
-                         tal:define="item_obj item/getObject"> 
-                         <div class="pkapp-listing-image">
-                            <a tal:attributes="href item_obj/absolute_url">
-                            <img tal:define="scales item_obj/@@images;
-                               thumbnail python: scales.scale('image', width=140, height=140);"
-                               tal:condition="thumbnail"
-                               tal:attributes="src thumbnail/url;
-                               width thumbnail/width;
-                               height thumbnail/height;"/>
-                            </a>
-                         </div>
-                         <a tal:attributes="href item/getURL">
-                           <b class="pkapp-listing-label" tal:content="item/pretty_title_or_id"></b>
-                        </a>
-
-                      </div>
-                   </tal:item>
-                </div>
-             </tal:table>
+          <tal:item repeat="item batch">
+          <div class="pkapp-listing-item"
+             tal:define="item_obj item/getObject"> 
+             <div class="pkapp-listing-image">
+                <a tal:attributes="href item_obj/absolute_url">
+                   <tal:if condition="item_obj/pk_icon|nothing">
+                   <img tal:define="scales item_obj/@@images;
+                   thumbnail python: scales.scale('pk_icon', width=96, height=96);"
+                   tal:condition="thumbnail"
+                   tal:attributes="src thumbnail/url;
+                   width thumbnail/width;
+                   height thumbnail/height;"/>
+                   </tal:if>
+                </a>
+             </div>
+             <a tal:attributes="href item/getURL">
+                <b class="pkapp-listing-label" tal:content="item/pretty_title_or_id"></b>
+             </a>
+          </div>
+          </tal:item>
+          <div class="visualClear"></div>
           </metal:entries>
        </metal:block>
     </metal:content-core>

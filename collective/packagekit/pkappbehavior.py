@@ -12,6 +12,17 @@ from plone.formwidget.contenttree import ObjPathSourceBinder
 from collective.packagekit import MessageFactory as _
 
 
+def checkImageSize(value):
+    geometry = (value._height, value._width)
+
+    if geometry not in [
+            (96, 96),
+            (128, 128), 
+            (256,256)]:
+        return False
+
+    return True
+
 class IPackageKitApplicationBehavior(form.Schema):
     """
        Marker/Form interface for PackageKit Application Behavior
@@ -19,12 +30,19 @@ class IPackageKitApplicationBehavior(form.Schema):
    
     # -*- Your Zope schema definitions here ... -*-
 
+    pk_icon = namedfile.NamedBlobImage(
+        title=u'Icon',
+        description=u'valid sizes are 96x96, 128x128, and 256x256',
+        constraint=checkImageSize
+    )
+
     pk_packages = schema.List(
         title=u'Packages',
         description=(u'List of packages related for this application, separate'
                      u' using newline'),
         value_type=schema.TextLine(title=u'Package')
     )
+
 
 
 alsoProvides(IPackageKitApplicationBehavior,IFormFieldProvider)
@@ -46,6 +64,7 @@ class PackageKitApplicationBehavior(object):
     adapts(IDexterityContent)
 
     pk_packages = context_property('pk_packages')
+    pk_icon = context_property('pk_icon')
 
     def __init__(self,context):
         self.context = context

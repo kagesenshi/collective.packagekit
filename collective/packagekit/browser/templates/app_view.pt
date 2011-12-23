@@ -4,20 +4,33 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       metal:use-macro="here/main_template/macros/master">
 <head>
+
+<metal:slot fill-slot="style_slot">
+      <style>
+         .packagekit-icon {
+            margin-top:20px;
+         }
+      </style>
+</metal:slot>
+
 </head>
 <body>
    <div metal:fill-slot="content-core">
 
-      <div>
-      <object type="application/x-packagekit-plugin" width="300" height="70"
-         class="packagekit-plugin">
-         <param name="displayname" tal:attributes="value context/title"/>
-         <param name="packagenames" tal:attributes="value python:' '.join(context.pk_packages)"/>
-         <table style="width:300px;height:70px">
-            <tr><td style="vertical-align:middle">Unable to load PackageKit Web Plugin. If you are on <a href="http://fedoraproject.org">Fedora</a>, ensure <code>PackageKit-browser-plugin</code> is installed and you are loading this page using Firefox</td></tr>
-         </table>
-      </object>
-   </div>
+      <div class="packagekit-icon">
+       <tal:if condition="context/pk_icon|nothing">
+       <img tal:define="scales context/@@images;
+       thumbnail python: scales.scale('pk_icon', width=96, height=96);"
+       tal:condition="thumbnail"
+       tal:attributes="src thumbnail/url;
+                        width thumbnail/width;
+                        height thumbnail/height;"/><br/>
+       </tal:if>
+        <form tal:attributes="action string:${context/absolute_url}/download_catalog"
+               method="get">
+         <input type="Submit" value="Install Now!"/>
+        </form>
+      </div>
 
       <div tal:condition="here/text|nothing">
       <h4>Details</h4>
