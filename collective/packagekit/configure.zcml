@@ -41,4 +41,10 @@
 
     <adapter factory=".indexer.categories" name="Subject"/>
 
+    <utility
+        component=".vocabulary.groups_vocabulary_factory"
+        name="collective.packagekit.groups"
+        provides="zope.schema.interfaces.IVocabularyFactory"
+        />
+
 </configure>

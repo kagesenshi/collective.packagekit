@@ -1,28 +1,33 @@
 from zope.schema.vocabulary import SimpleVocabulary
 from collective.packagekit import MessageFactory as _
+from zope.interface import implements
+from zope.schema.interfaces import IVocabularyFactory
 
 GROUPS=[
-    ('admin-tools',_('Admin tools')),
-    ('desktop-gnome',_('GNOME desktop')),
-    ('desktop-kde',_('KDE desktop')),
-    ('desktop-other',_('Other desktops')),
-    ('desktop-xfce',_('XFCE desktop')),
-    ('education',_('Education')),
-    ('fonts',_('Fonts')),
-    ('games',_('Games')),
-    ('graphics',_('Graphics')),
-    ('internet',_('Internet')),
-    ('legacy',_('Legacy')),
-    ('localization',_('Localization')),
-    ('multimedia',_('Multimedia')),
-    ('office',_('Office')),
-    ('other',_('Other')),
-    ('programming',_('Programming')),
-    ('publishing',_('Publishing')),
-    ('servers',_('Servers')),
-    ('system',_('System')),
-    ('virtualization',_('Virtualization')),
-    ('collections',_('Collections')),
+   (_('Admin tools'), 'admin-tools'),
+   (_('GNOME desktop'), 'desktop-gnome'),
+   (_('KDE desktop'), 'desktop-kde'),
+   (_('Other desktops'), 'desktop-other'),
+   (_('XFCE desktop'), 'desktop-xfce'),
+   (_('Education'), 'education'),
+   (_('Fonts'), 'fonts'),
+   (_('Games'), 'games'),
+   (_('Graphics'), 'graphics'),
+   (_('Internet'), 'internet'),
+   (_('Legacy'), 'legacy'),
+   (_('Localization'), 'localization'),
+   (_('Multimedia'), 'multimedia'),
+   (_('Office'), 'office'),
+   (_('Other'), 'other'),
+   (_('Programming'), 'programming'),
+   (_('Publishing'), 'publishing'),
+   (_('Servers'), 'servers'),
+   (_('System'), 'system'),
+   (_('Virtualization'), 'virtualization'),
+   (_('Collections'), 'collection'),
 ]
 
 GROUPS_VOCABULARY=SimpleVocabulary.fromItems(GROUPS)
+
+def groups_vocabulary_factory(context):
+    return GROUPS_VOCABULARY
