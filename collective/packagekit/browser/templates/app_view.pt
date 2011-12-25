@@ -34,7 +34,8 @@
                         width thumbnail/width;
                         height thumbnail/height;"/><br/>
        </tal:if>
-      </tal:full-view-header>
+       </tal:full-view-header>
+
       <div tal:condition="here/text|nothing">
       <h4>Details</h4>
       <tal:c replace="structure here/text|nothing"/>
@@ -43,6 +44,9 @@
          <h4>Website</h4>
          <p><a tal:attributes="href here/remoteUrl" tal:content="here/remoteUrl"></a></p>
       </div>
+
+      </metal:core>
+
          <div id="screenshot-gallery" tal:condition="python:images or can_add">
          <h4>Screenshots</h4>
          <div tal:define="rows python:pkapp_util.gridslice(images, 6)">
@@ -76,7 +80,6 @@
          </div>
       <h4>Manual installation using YUM</h4>
       <pre>yum install <tal:r replace="python:' '.join(pkapp_util.fedora_packages())"/></pre>
-      </metal:core>
    </div>
 </body>
 </html>
