@@ -47,6 +47,10 @@
 
       </metal:core>
 
+      <tal:extra define="pkapp_util nocall:context/@@pkapp_util;
+                        images pkapp_util/images;
+                        can_add pkapp_util/can_add;">
+
          <div id="screenshot-gallery" tal:condition="python:images or can_add">
          <h4>Screenshots</h4>
          <div tal:define="rows python:pkapp_util.gridslice(images, 6)">
@@ -80,6 +84,7 @@
          </div>
       <h4>Manual installation using YUM</h4>
       <pre>yum install <tal:r replace="python:' '.join(pkapp_util.fedora_packages())"/></pre>
+      </tal:extra>
    </div>
 </body>
 </html>
