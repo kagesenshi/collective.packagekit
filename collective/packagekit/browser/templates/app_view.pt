@@ -26,9 +26,10 @@
                   current_view view/request/getURL">
 
       <tal:full-view-header condition="python: current_view.endswith('/folder_full_view')">
-       <tal:if condition="context/pk_icon|nothing">
+      <div style="float:left;margin:20px">
+      <tal:if condition="context/pk_icon|nothing">
       <a tal:attributes="href context/absolute_url">
-       <img style="float:left;margin:20px" tal:define="scales context/@@images;
+       <img tal:define="scales context/@@images;
        thumbnail python: scales.scale('pk_icon', width=96, height=96);"
        tal:condition="thumbnail"
        tal:attributes="src thumbnail/url;
@@ -39,6 +40,7 @@
                method="get">
          <input type="Submit" value="Install Now!"/>
         </form>
+      </div>
        </tal:full-view-header>
 
       <div tal:condition="here/text|nothing">
