@@ -24,7 +24,7 @@ GROUPS=[
    (_('Servers'), 'servers'),
    (_('System'), 'system'),
    (_('Virtualization'), 'virtualization'),
-   (_('Collections'), 'collection'),
+   (_('Collections'), 'collections'),
 ]
 
 GROUPS_VOCABULARY=SimpleVocabulary.fromItems(GROUPS)

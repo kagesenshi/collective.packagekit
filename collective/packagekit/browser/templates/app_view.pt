@@ -17,11 +17,24 @@
 
 </head>
 <body>
-   <div metal:fill-slot="content-core"
-      tal:define="images view/images;
-                  can_add view/can_add;
-                  pkapp_util nocall:view/@@pkapp_util">
+   <div metal:fill-slot="content-core">
 
+      <metal:core define-macro="content-core"
+      tal:define="pkapp_util nocall:context/@@pkapp_util;
+                  images pkapp_util/images;
+                  can_add pkapp_util/can_add;
+                  current_view view/request/getURL">
+
+      <tal:full-view-header condition="python: current_view.endswith('/folder_full_view')">
+       <tal:if condition="context/pk_icon|nothing">
+       <img style="float:left;margin:20px" tal:define="scales context/@@images;
+       thumbnail python: scales.scale('pk_icon', width=96, height=96);"
+       tal:condition="thumbnail"
+       tal:attributes="src thumbnail/url;
+                        width thumbnail/width;
+                        height thumbnail/height;"/><br/>
+       </tal:if>
+      </tal:full-view-header>
       <div tal:condition="here/text|nothing">
       <h4>Details</h4>
       <tal:c replace="structure here/text|nothing"/>
@@ -62,7 +75,8 @@
             </form>
          </div>
       <h4>Manual installation using YUM</h4>
-      <pre>yum install <tal:r replace="python:' '.join(view.fedora_packages())"/></pre>
+      <pre>yum install <tal:r replace="python:' '.join(pkapp_util.fedora_packages())"/></pre>
+      </metal:core>
    </div>
 </body>
 </html>
