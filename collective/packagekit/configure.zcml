@@ -39,4 +39,6 @@
         marker=".pkappbehavior.IPackageKitApplicationBehavior"
         />
 
+    <adapter factory=".indexer.categories" name="Subject"/>
+
 </configure>

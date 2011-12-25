@@ -12,6 +12,8 @@ from plone.formwidget.contenttree import ObjPathSourceBinder
 from collective.packagekit import MessageFactory as _
 from collective.z3cform.datagridfield import DataGridFieldFactory, DictRow
 
+from collective.packagekit.vocabulary import GROUPS_VOCABULARY
+
 def checkImageSize(value):
     geometry = (value._height, value._width)
 
@@ -59,6 +61,14 @@ class IPackageKitApplicationBehavior(form.Schema):
         value_type=DictRow(title=u'Package', schema=IPackageKitPackages)
     )
 
+    pk_categories = schema.List(
+        title=u'Categories',
+        value_type=schema.Choice(
+            title=u'Category',
+            vocabulary=GROUPS_VOCABULARY
+        )
+    )
+
 
 
 alsoProvides(IPackageKitApplicationBehavior,IFormFieldProvider)
@@ -81,6 +91,7 @@ class PackageKitApplicationBehavior(object):
 
     pk_packages = context_property('pk_packages')
     pk_icon = context_property('pk_icon')
+    pk_categories = context_property('pk_categories')
 
     def __init__(self,context):
         self.context = context
