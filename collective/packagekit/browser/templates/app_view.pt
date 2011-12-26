@@ -28,7 +28,7 @@
       <tal:full-view-header condition="python: current_view.endswith('/folder_full_view')">
       <div style="float:left;margin:20px">
       <tal:if condition="context/pk_icon|nothing">
-      <a tal:attributes="href context/absolute_url">
+      <a tal:attributes="href context/absolute_url" style="display:block;">
        <img tal:define="scales context/@@images;
        thumbnail python: scales.scale('pk_icon', width=96, height=96);"
        tal:condition="thumbnail"
