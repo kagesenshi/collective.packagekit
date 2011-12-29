@@ -1,0 +1,97 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+   <metal:slot fill-slot="style_slot">
+      <style>
+         .pkapp-listing-image {
+            height:96px;
+            width:128px;
+         }
+
+         .pkapp-listing-item {
+         }
+
+         .pkapp-listing-item a {
+            text-decoration:none;
+            border-bottom:none !important;
+         }
+
+         .pkapp-listing-label {
+            font-size:12px;
+         }
+
+         .pkapp-listing-item td {
+            margin:0;
+            padding-top:10px;
+            border:none;
+         }
+
+         .pkapp-listing-item table {
+            border:none;
+            margin:0;
+         }
+
+         .pkapp-listing-rating {
+            float:right;
+         }
+
+      </style>
+   </metal:slot>
+</head>
+
+<body>
+
+    <metal:content-core fill-slot="content-core">
+       <metal:block define-macro="listing" extend-macro="context/folder_listing/macros/content-core">
+          <!-- we don't want the dl -->
+          <metal:entries fill-slot="entries">
+          <tal:item repeat="item batch">
+          <div class="pkapp-listing-item"
+             tal:define="item_obj item/getObject"> 
+
+             <table>
+                <tr>
+                   <td style="width:128px;text-align:center">
+             <div class="pkapp-listing-image">
+                <a tal:attributes="href item_obj/absolute_url">
+                   <tal:if condition="item_obj/pk_icon|nothing">
+                   <img tal:define="scales item_obj/@@images;
+                   thumbnail python: scales.scale('pk_icon', width=96, height=96);"
+                   tal:condition="thumbnail"
+                   tal:attributes="src thumbnail/url;
+                   width thumbnail/width;
+                   height thumbnail/height;"/>
+                   </tal:if>
+                </a>
+             </div>
+             <form tal:attributes="action string:${item/getURL}/download_catalog"
+                  method="get">
+             <input type="Submit" value="Install Now!"/>
+            </form>
+               </td>
+               <td>
+                  <div class="pkapp-listing-rating">
+                     <tal:block replace="structure item_obj/user-ratings"/>
+                  </div>
+                  <h2><a tal:attributes="href item_obj/absolute_url"
+                        tal:content="item_obj/pretty_title_or_id"></a></h2>
+                  <p tal:content="item_obj/Description"></p>
+
+               </td>
+               </tr>
+            </table>
+          </div>
+          </tal:item>
+          <div class="visualClear"></div>
+          </metal:entries>
+       </metal:block>
+    </metal:content-core>
+
+</body>
+</html>
