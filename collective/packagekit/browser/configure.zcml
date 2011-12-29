@@ -8,4 +8,13 @@
         permission="zope2.View"
         />
 
+
+    <browser:page
+        name="app_linear_listing_view"
+        for="*"
+        template="templates/app_linear_listing_view.pt"
+        permission="zope2.View"
+        />
+
+
 </configure>
